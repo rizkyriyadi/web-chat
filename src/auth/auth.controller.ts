@@ -32,13 +32,11 @@ export class AuthController {
   async register(@Body() registerDto: RegisterDto) {
     try {
       await this.authService.register(registerDto);
-      // Jika registrasi berhasil:
       return {
         statusCode: HttpStatus.CREATED, // 201 Created
         message: 'User registered successfully!',
       };
     } catch (error) {
-      // Handle error dengan tepat, misalnya:
       throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
     }
   }

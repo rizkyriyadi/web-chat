@@ -17,11 +17,11 @@ import { User } from './user/entities/user.entity';
     ConfigModule.forRoot(),
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: '45.127.134.182',
-      port: 5432,
-      username: 'postgres',
-      password: '177013',
-      database: 'local-dev',
+      host: process.env.DB_HOST,
+      port: parseInt(process.env.DB_PORT),
+      username: process.env.DB_USERNAME,
+      password: process.env.DB_PASSWORD,
+      database: process.env.DB_DATABASE,
       entities: [User],
       synchronize: true,
     }),
@@ -30,5 +30,3 @@ import { User } from './user/entities/user.entity';
   providers: [AppService],
 })
 export class AppModule {}
-
-// postgres://postgres:177013@45.127.134.182:5432/postgres?schema=public
