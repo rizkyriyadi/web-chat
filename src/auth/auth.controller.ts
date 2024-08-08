@@ -10,6 +10,6 @@ export class AuthController {
   @Get('google/callback')
   @UseGuards(AuthGuard('google'))
   async googleAuthRedirect(@Req() req, @Res() res) {
-    res.redirect('/api');
+    res.redirect('/maintenance');
   }
 }

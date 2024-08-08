@@ -14,4 +14,9 @@ export class AppController {
   getLoginPage(@Res() res: Response): void {
     res.sendFile(join(__dirname, '..', 'public', 'login.html'));
   }
+
+  @Get('maintenance')
+  getHomeScreen(@Res() res: Response): void {
+    res.sendFile(join(__dirname, '..', 'public', 'UnderMaintenance.html'));
+  }
 }
