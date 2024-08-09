@@ -87,16 +87,23 @@
     <footer class="bg-dark"></footer>
 
     <script>
+      // Tentukan base URL berdasarkan environment
+      const baseURL =
+        window.location.hostname === 'localhost'
+          ? 'http://localhost:3000'
+          : 'https://rizkyriyadi.me';
+
+      // Event listener untuk form login
       const loginForm = document.getElementById('loginForm');
       const errorMessage = document.getElementById('error-message');
 
       loginForm.addEventListener('submit', (event) => {
-        event.preventDefault(); // Mencegah refresh halaman
+        event.preventDefault();
 
         const email = document.getElementById('email').value;
         const password = document.getElementById('password').value;
 
-        fetch('https://rizkyriyadi.me/auth/login', {
+        fetch(`${baseURL}/auth/login`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -105,30 +112,31 @@
         })
           .then((response) => {
             if (!response.ok) {
-              // Login gagal
               return response.json().then((errorData) => {
                 throw new Error(errorData.message || 'Login failed!');
               });
             }
-            // Login berhasil
             return response.json();
           })
           .then((data) => {
-            // Simpan token JWT (jika ada)
             if (data.accessToken) {
               localStorage.setItem('accessToken', data.accessToken);
             }
-
-            // Redirect ke halaman yang dilindungi
-            window.location.href = '/maintenance'; // Ganti dengan rute dashboard Anda
+            window.location.href = '/maintenance';
           })
           .catch((error) => {
-            // Tampilkan pesan error
             errorMessage.textContent = error.message;
             errorMessage.style.display = 'block';
           });
       });
+
+      const googleLoginButton = document.getElementById('loginButton');
+
+      googleLoginButton.addEventListener('click', () => {
+        window.location.href = `${baseURL}/auth/google`;
+      });
     </script>
+
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="assets/js/bold-and-dark.js"></script>
   </body>

@@ -7,6 +7,7 @@ import { join } from 'path';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './user/entities/user.entity';
+import { DATABASE_TYPE_TOKEN } from './constant';
 
 @Module({
   imports: [
@@ -16,7 +17,7 @@ import { User } from './user/entities/user.entity';
     }),
     ConfigModule.forRoot(),
     TypeOrmModule.forRoot({
-      type: 'postgres',
+      type: DATABASE_TYPE_TOKEN,
       host: process.env.DB_HOST,
       port: parseInt(process.env.DB_PORT),
       username: process.env.DB_USERNAME,
